@@ -1,7 +1,10 @@
 #ifndef _ROBOT_WINDOW
 #define _ROBOT_WINDOW
-#include <GLFW/glfw3.h>
 #include <iostream>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+
 
 class RobotWindow
 {
