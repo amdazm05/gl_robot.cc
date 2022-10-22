@@ -5,16 +5,15 @@ Robotrender::Robotrender()
     //initialising the the vertices of the robot
     robotVertices = 
     {
-        0.2f,  0.2f, 0.0f,  // top right
-        0.0f, -0.0f, 0.0f,  // bottom right
-        -0.2f, -0.2f, 0.0f,  // bottom left
-        // -0.2f,  0.2f, 0.0f   // top left 
-
+        -0.5f, -0.5f, 0.0f,  // left 
+        0.5f, -0.5f, 0.0f,  // right
+        0.5f, 0.5f, 0.0f,  // top 
+        -0.5f, 0.5f, 0.0f,  // left 
     };
     
     
     int success;
-    unsigned int EBO;
+ 
     robotvertexProgram = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(robotvertexProgram, 1, &vertexShaderSource, NULL);
     glCompileShader(robotvertexProgram);
@@ -49,25 +48,25 @@ Robotrender::Robotrender()
         glGetProgramInfoLog(robotshaderProgram, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
     }
-    glDeleteShader(robotvertexProgram);
-    glDeleteShader(robotfragmentShader);
 
     glGenVertexArrays(1, &robotVAO);
     glGenBuffers(1, &robotVBO);
-    // glGenBuffers(1, &robotEBO);
+    glGenBuffers(1, &robotEBO);
+    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
     glBindVertexArray(robotVAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, robotVBO);
     glBufferData(GL_ARRAY_BUFFER, robotVertices.size()*sizeof(float), &robotVertices[0], GL_STATIC_DRAW);
 
-    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, robotEBO);
-    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, robotEBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    GLint vpAttr = glGetAttribLocation(robotshaderProgram, "vp");
-    glVertexAttribPointer(vpAttr, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0); 
-    glBindVertexArray(0);
+    glBindVertexArray(0); 
+
 }
 
 unsigned int Robotrender::getRobotShaderprogram()

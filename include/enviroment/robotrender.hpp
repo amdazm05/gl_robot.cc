@@ -16,8 +16,8 @@ class Robotrender
         unsigned int robotEBO;
         unsigned int indices[6] = 
         {  // note that we start from 0!
-            0, 1, 3,   // first triangle
-            1, 2, 3    // second triangle
+            0, 1, 2,   // first triangle
+            2, 3, 0    // second triangle
         };
 
         unsigned int robotshaderProgram;
