@@ -5,49 +5,21 @@ Robotrender::Robotrender()
     //initialising the the vertices of the robot
     robotVertices = 
     {
-        -0.5f, -0.5f, 0.0f,  // left 
-        0.5f, -0.5f, 0.0f,  // right
-        0.5f, 0.5f, 0.0f,  // top 
-        -0.5f, 0.5f, 0.0f,  // left 
+        -0.1f, -0.1f, 0.0f,  // left 
+        0.1f, -0.1f, 0.0f,  // right
+        0.1f, 0.1f, 0.0f,  // top 
+        -0.1f, 0.1f, 0.0f,  // left 
     };
     
-    
+    indices = 
+    {  
+        0, 1, 2,   // first triangle
+        2, 3, 0    // second triangle
+    };
+
     int success;
  
-    robotvertexProgram = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(robotvertexProgram, 1, &vertexShaderSource, NULL);
-    glCompileShader(robotvertexProgram);
-    // check for shader compile errors
-    char infoLog[512];
-    glGetShaderiv(robotvertexProgram, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(robotvertexProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-
-    robotfragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(robotfragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(robotfragmentShader);
-    // check for shader compile errors
-    glGetShaderiv(robotfragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(robotfragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED " << infoLog << std::endl;
-    }
-    // link shaders
-    robotshaderProgram = glCreateProgram();
-
-    glAttachShader(robotshaderProgram, robotvertexProgram);
-    glAttachShader(robotshaderProgram, robotshaderProgram);
-    glLinkProgram(robotshaderProgram);
-    // check for linking errors
-    glGetProgramiv(robotshaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(robotshaderProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-    }
+    robotshaderProgram = ShaderUtils::createShader(vertexShader, fragmentShader);
 
     glGenVertexArrays(1, &robotVAO);
     glGenBuffers(1, &robotVBO);
@@ -59,7 +31,7 @@ Robotrender::Robotrender()
     glBufferData(GL_ARRAY_BUFFER, robotVertices.size()*sizeof(float), &robotVertices[0], GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, robotEBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(float), &indices[0], GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);

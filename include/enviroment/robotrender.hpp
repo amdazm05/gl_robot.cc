@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <enviroment/robotshader.h>
+#include <utils/shaderutils.hpp>
 
 
 class Robotrender
@@ -14,11 +15,7 @@ class Robotrender
         unsigned int robotVBO;
         unsigned int robotVAO;
         unsigned int robotEBO;
-        unsigned int indices[6] = 
-        {  // note that we start from 0!
-            0, 1, 2,   // first triangle
-            2, 3, 0    // second triangle
-        };
+        std::vector<unsigned int>  indices ;
 
         unsigned int robotshaderProgram;
         unsigned int robotvertexProgram;

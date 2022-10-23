@@ -11,6 +11,7 @@ add_library(
     STATIC
     ${PROJECT_SOURCE_DIR}/src/enviroment/robotrender.cc 
     ${PROJECT_SOURCE_DIR}/src/enviroment/robotwindow.cc 
+    ${PROJECT_SOURCE_DIR}/src/utils/shaderutils.cc
 )
 
 target_link_directories(
@@ -28,18 +29,6 @@ target_link_libraries(
     ${PROJECT_NAME}
     PUBLIC
     robot_enviroment
-    glfw
-    GL
-    GLEW
-)
-
-add_executable(example
-    ${PROJECT_SOURCE_DIR}/app/example.cc
-)
-
-target_link_libraries(
-    example
-    PUBLIC
     glfw
     GL
     GLEW

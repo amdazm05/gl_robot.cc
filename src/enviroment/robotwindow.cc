@@ -28,19 +28,15 @@ RobotWindow::RobotWindow(int width, int height)
     
 
     Robotrender robotrender;
-    unsigned int VAO = robotrender.getRobotVAO();
-    unsigned int shaderprog = robotrender.getRobotShaderprogram();
+   
     
-    // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-    glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-    glUseProgram(shaderprog);   
+    glBindVertexArray(robotrender.getRobotVAO());
     while(!glfwWindowShouldClose(robotwindow))
     {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        // glDrawArrays(GL_TRIANGLES, 0, 3);
+        glUseProgram(robotrender.getRobotShaderprogram());
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        // Segmentation fault if incorrect type is used here
         glfwSwapBuffers(robotwindow);
         glfwPollEvents();
     }
