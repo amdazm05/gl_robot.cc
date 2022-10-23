@@ -4,8 +4,10 @@
 #include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <GL/glut.h>
 #include <enviroment/robotshader.h>
 #include <utils/shaderutils.hpp>
+#include <math.h>
 
 
 class Robotrender
@@ -17,6 +19,10 @@ class Robotrender
         unsigned int robotEBO;
         std::vector<unsigned int>  indices ;
 
+        //Initial offsets
+        float fYOffset=0.0f;
+        float fXOffset=0.0f;
+
         unsigned int robotshaderProgram;
         unsigned int robotvertexProgram;
         unsigned int robotfragmentShader;
@@ -25,6 +31,8 @@ class Robotrender
         Robotrender();
         unsigned int getRobotShaderprogram();
         unsigned int getRobotVAO();
+        unsigned int getRobotVBO();
+        void moveRobotRender();
         ~Robotrender();
 };
 

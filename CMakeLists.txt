@@ -30,6 +30,8 @@ target_link_libraries(
     PUBLIC
     robot_enviroment
     glfw
-    GL
+    GL 
+    glut 
+    GLU 
     GLEW
 )

@@ -33,10 +33,21 @@ RobotWindow::RobotWindow(int width, int height)
     glBindVertexArray(robotrender.getRobotVAO());
     while(!glfwWindowShouldClose(robotwindow))
     {
+        robotrender.moveRobotRender();
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+        
         glUseProgram(robotrender.getRobotShaderprogram());
+        
+        glBindBuffer(GL_ARRAY_BUFFER, robotrender.getRobotVBO());
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        
+        glDisableVertexAttribArray(0);
+        glUseProgram(0);
+
         glfwSwapBuffers(robotwindow);
         glfwPollEvents();
     }
