@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include <GL/glut.h>
 #include <enviroment/robotshader.h>
+#include <robotmodel/robotmodel.hpp>
 #include <utils/shaderutils.hpp>
 #include <math.h>
 
@@ -18,10 +19,11 @@ class Robotrender
         unsigned int robotVAO;
         unsigned int robotEBO;
         std::vector<unsigned int>  indices ;
-
+        RobotModel * model;
         //Initial offsets
         float fYOffset=0.0f;
         float fXOffset=0.0f;
+        float fyaw=0.0f;
 
         unsigned int robotshaderProgram;
         unsigned int robotvertexProgram;

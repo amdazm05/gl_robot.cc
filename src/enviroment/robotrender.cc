@@ -3,6 +3,7 @@
 Robotrender::Robotrender()
 {
     //initialising the the vertices of the robot
+    model = new DiffRobotModel();
     robotVertices = 
     {
         -0.1f, -0.1f, 0.0f,  // left 
@@ -54,21 +55,20 @@ unsigned int Robotrender::getRobotVBO()
 
 void Robotrender::moveRobotRender()
 {
-
-    const float fLoopDuration = 5.0f;
-    const float fScale = 3.14159f * 2.0f / fLoopDuration;
-    
-    float fElapsedTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
-    
-    float fCurrTimeThroughLoop = fmodf(fElapsedTime, fLoopDuration);
-    
-    fXOffset =  0.01f*0.5f;
-    fYOffset =  0.01f*0.5f;
+    RobotModel::RobotState offsets = model->updateSate(0.005f, -0.005f);
+    fXOffset = offsets.x;
+    fYOffset = offsets.y;
+    fyaw = offsets.yaw;
 
     for(int iVertex = 0; iVertex < robotVertices.size() ; iVertex += 3)
     {
-        std::cout<<robotVertices.at(iVertex)<<" , "<<robotVertices.at(iVertex+1)<<std::endl;
         
+        robotVertices.at(iVertex) = robotVertices.at(iVertex)*cosf(fyaw)+robotVertices.at(iVertex+1)*sinf(fyaw);
+        robotVertices.at(iVertex+1) = -robotVertices.at(iVertex)*sinf(fyaw)+robotVertices.at(iVertex+1)*cosf(fyaw);
+        
+        std::cout<<"Vertix Update: "<<iVertex<<std::endl;
+        std::cout<<robotVertices.at(iVertex)<<" , "<<robotVertices.at(iVertex+1)<<std::endl;
+        std::cout<<std::endl;
         robotVertices.at(iVertex)+= fXOffset;
         robotVertices.at(iVertex+1) += fYOffset;
     }

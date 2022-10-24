@@ -15,6 +15,7 @@ add_library(
     ${PROJECT_SOURCE_DIR}/src/enviroment/robotrender.cc 
     ${PROJECT_SOURCE_DIR}/src/enviroment/robotwindow.cc 
     ${PROJECT_SOURCE_DIR}/src/utils/shaderutils.cc
+    ${PROJECT_SOURCE_DIR}/src/robotmodel/robotmodel.cc 
 )
 
 target_link_directories(

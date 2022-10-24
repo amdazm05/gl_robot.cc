@@ -14,7 +14,7 @@ class RobotModel
         RobotState Xt_prev;
         RobotState Xt;
     public:
-        virtual void updateSate(float velocity, float yawRate)=0;
+        virtual RobotState updateSate(float velocity, float yawRate)=0;
 };
 
 class DiffRobotModel : public RobotModel
@@ -23,10 +23,12 @@ class DiffRobotModel : public RobotModel
         //Since it an identity we don't really need to do anything fancy 
         // but writing this here for completeness 
         // boost::numeric::ublas::identity_matrix<float> A;
+        float delT = 0.01f;
         boost::numeric::ublas::matrix<float> B;
     public:
         DiffRobotModel();
-        void updateSate(float velocity, float yawRate);
+        //  Returns the new state ?
+        RobotState updateSate(float velocity, float yawRate);
 };
 
 #endif //_ROBOT_MODEL
