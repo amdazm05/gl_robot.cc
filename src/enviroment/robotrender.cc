@@ -101,27 +101,34 @@ unsigned int * Robotrender::getRobotVBO()
 
 void Robotrender::moveRobotRender()
 {
-    RobotModel::RobotState offsets = model->updateSate(0.0005f, -0.0005f);
+    RobotModel::RobotState offsets = model->updateSate(0.05f, -0.05f);
     fXOffset = offsets.x;
     fYOffset = offsets.y;
     fyaw = offsets.yaw;
 
     // For animating the render
-    for(int iVertex = 0; iVertex < robotBodyVertices.size() ; iVertex += 3)
-    {
-        
-        robotBodyVertices.at(iVertex) = robotBodyVertices.at(iVertex)*cosf(fyaw)+robotBodyVertices.at(iVertex+1)*sinf(fyaw);
-        robotBodyVertices.at(iVertex+1) = -robotBodyVertices.at(iVertex)*sinf(fyaw)+robotBodyVertices.at(iVertex+1)*cosf(fyaw);
-        
-        std::cout<<"Vertix Update: "<<iVertex<<std::endl;
-        std::cout<<robotBodyVertices.at(iVertex)<<" , "<<robotBodyVertices.at(iVertex+1)<<std::endl;
-        std::cout<<std::endl;
-        robotBodyVertices.at(iVertex)+= fXOffset;
-        robotBodyVertices.at(iVertex+1) += fYOffset;
+    for(int iVertex = 0; iVertex < robotWheelVertices.size() ; iVertex += 3)
+    {   
+        robotWheelVertices.at(iVertex) = robotWheelVertices.at(iVertex)*cosf(fyaw)+robotWheelVertices.at(iVertex+1)*sinf(fyaw);
+        robotWheelVertices.at(iVertex+1) = -robotWheelVertices.at(iVertex)*sinf(fyaw)+robotWheelVertices.at(iVertex+1)*cosf(fyaw);
+        robotWheelVertices.at(iVertex)+= fXOffset;
+        robotWheelVertices.at(iVertex+1) += fYOffset;
+
+        if(iVertex < robotBodyVertices.size())
+        {
+            robotBodyVertices.at(iVertex) = robotBodyVertices.at(iVertex)*cosf(fyaw)+robotBodyVertices.at(iVertex+1)*sinf(fyaw);
+            robotBodyVertices.at(iVertex+1) = -robotBodyVertices.at(iVertex)*sinf(fyaw)+robotBodyVertices.at(iVertex+1)*cosf(fyaw);
+            robotBodyVertices.at(iVertex)+= fXOffset;
+            robotBodyVertices.at(iVertex+1) += fYOffset;
+        }
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, robotVBO[0]);
     glBufferSubData(GL_ARRAY_BUFFER, 0, robotBodyVertices.size()*sizeof(float), &robotBodyVertices[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, robotVBO[1]);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, robotWheelVertices.size()*sizeof(float), &robotWheelVertices[0]);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
