@@ -15,4 +15,11 @@ static std::string fragmentShader = "#version 330 core\n"
 "color = vec4(1.0f, 0.1f, 0.2f, 1.0f);\n"
 "}\n";
 
+static std::string blackfragShader = "#version 330 core\n"
+"out vec4 color;\n"
+"void main()\n"
+"{\n"
+"color = vec4(0.0f, 0.0f, 0.0f, 0.0f);\n"
+"}\n";
+
 #endif
