@@ -6,6 +6,7 @@ static std::string vertexShader = "#version 330 core\n"
     "void main()\n"
     "{\n"
     "gl_Position = position;\n"
+    "gl_PointSize = 3.0;\n"
     "}\n";
 
 static std::string fragmentShader = "#version 330 core\n"

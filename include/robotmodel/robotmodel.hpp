@@ -20,7 +20,7 @@ class RobotModel
 class DiffRobotModel : public RobotModel
 {
     private:
-        //Since it an identity we don't really need to do anything fancy 
+        // Since it an identity we don't really need to do anything fancy 
         // but writing this here for completeness 
         // boost::numeric::ublas::identity_matrix<float> A;
         float delT = 0.001f;
