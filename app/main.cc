@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv)
 {
-    RobotWindow robotenviroment(640 ,480);
+    RobotWindow robotenviroment(980 ,720);
     return EXIT_SUCCESS;
 }
 

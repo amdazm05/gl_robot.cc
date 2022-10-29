@@ -25,8 +25,6 @@ RobotWindow::RobotWindow(int width, int height)
     glfwGetFramebufferSize(robotwindow, &width, &height);  
     glViewport(0, 0, width, height);
 
-    
-
     Robotrender robotrender;
    
     
@@ -52,7 +50,14 @@ RobotWindow::RobotWindow(int width, int height)
         glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
         glUseProgram(0);
 
-        
+
+        glUseProgram(robotrender.getRobotWheelShaderprogram());
+        glBindVertexArray(robotrender.getRobotVAO()[2]);
+        glBindBuffer(GL_ARRAY_BUFFER, robotrender.getRobotVBO()[2]);
+        glEnableVertexAttribArray(0);
+        glDrawArrays(GL_POINTS, 0, robotrender.getNumberOfTrailingPoints());
+        glUseProgram(0);
+
 
         glfwSwapBuffers(robotwindow);
         glfwPollEvents();

@@ -101,7 +101,7 @@ unsigned int * Robotrender::getRobotVBO()
 
 void Robotrender::moveRobotRender()
 {
-    RobotModel::RobotState offsets = model->updateSate(0.05f, -0.05f);
+    RobotModel::RobotState offsets = model->updateSate(-0.05f, 0.05f);
     fXOffset = offsets.x;
     fYOffset = offsets.y;
     fyaw = offsets.yaw;
@@ -123,6 +123,19 @@ void Robotrender::moveRobotRender()
         }
     }
 
+    #if PATH_LINES == 1 
+    if((trail_points.size()+3) < (1<<16))
+    {
+        trail_points.push_back(robotBodyVertices.at(0));
+        trail_points.push_back(robotBodyVertices.at(1));
+        renderRobotPathLine();
+    }
+    else
+    {
+        trail_points.clear();
+    }
+    #endif
+
     glBindBuffer(GL_ARRAY_BUFFER, robotVBO[0]);
     glBufferSubData(GL_ARRAY_BUFFER, 0, robotBodyVertices.size()*sizeof(float), &robotBodyVertices[0]);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -130,6 +143,35 @@ void Robotrender::moveRobotRender()
     glBindBuffer(GL_ARRAY_BUFFER, robotVBO[1]);
     glBufferSubData(GL_ARRAY_BUFFER, 0, robotWheelVertices.size()*sizeof(float), &robotWheelVertices[0]);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+}
+
+void  Robotrender::renderRobotPathLine()
+{
+    //Render the Robot wheels
+    glGenVertexArrays(1, &robotVAO[2]);
+    glGenBuffers(1, &robotVBO[2]);
+
+    glBindVertexArray(robotVAO[2]);
+    glBindBuffer(GL_ARRAY_BUFFER, robotVBO[2]);
+    glBufferData(GL_ARRAY_BUFFER, trail_points.size()*sizeof(float), &trail_points[0], GL_STATIC_DRAW);
+
+
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glEnable(GL_PROGRAM_POINT_SIZE);
+}
+
+void Robotrender::updateRobotPath()
+{
+    glBindBuffer(GL_ARRAY_BUFFER, robotVBO[2]);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, trail_points.size()*sizeof(float), &trail_points[0]);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+unsigned int Robotrender::getNumberOfTrailingPoints()
+{
+    return trail_points.size();
 }
 
 Robotrender::~Robotrender()
