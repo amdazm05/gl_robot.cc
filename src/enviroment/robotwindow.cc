@@ -1,8 +1,19 @@
 #include<enviroment/robotwindow.hpp>
 #include<enviroment/robotrender.hpp>
 
+GLFWwindow* RobotWindow::robotwindow;
+int RobotWindow::width;
+int RobotWindow::height;        
+
 RobotWindow::RobotWindow(int width, int height)
 {
+   
+}
+
+void RobotWindow::RenderWindow(int width, int height,RobotModel::RobotState &offsets)
+{
+    width = width;
+    height = height;
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -30,7 +41,7 @@ RobotWindow::RobotWindow(int width, int height)
     
     while(!glfwWindowShouldClose(robotwindow))
     {
-        robotrender.moveRobotRender();
+        robotrender.moveRobotRender(offsets);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         
