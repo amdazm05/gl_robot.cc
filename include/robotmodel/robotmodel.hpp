@@ -5,7 +5,7 @@
 class RobotModel
 {
     public:
-        struct RobotState
+        struct alignas(64) RobotState
         {
             float x;
             float y;

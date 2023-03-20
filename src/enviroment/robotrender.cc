@@ -3,7 +3,7 @@
 Robotrender::Robotrender()
 {
     //initialising the the vertices of the robot
-    model = new DiffRobotModel();
+    
     robotBodyVertices = 
     {
         -0.1f, -0.1f, 0.0f,  // left 
@@ -99,9 +99,9 @@ unsigned int * Robotrender::getRobotVBO()
     return  robotVBO;
 }
 
-void Robotrender::moveRobotRender()
+void Robotrender::moveRobotRender(RobotModel::RobotState &offsets)
 {
-    RobotModel::RobotState offsets = model->updateSate(-0.05f, 0.05f);
+   
     fXOffset = offsets.x;
     fYOffset = offsets.y;
     fyaw = offsets.yaw;

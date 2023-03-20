@@ -3,7 +3,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-
+#include <robotmodel/robotmodel.hpp>
 
 
 class RobotWindow
@@ -15,7 +15,7 @@ class RobotWindow
     public: 
         //No standard constructor
         RobotWindow()=delete;
-        static void RenderWindow(int width, int height);
+        static void RenderWindow(int width, int height,RobotModel::RobotState & offsets);
         //The constructor use this
         RobotWindow(int width, int height);
         ~RobotWindow();
