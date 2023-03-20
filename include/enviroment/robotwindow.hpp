@@ -9,11 +9,13 @@
 class RobotWindow
 {
     private:
-        GLFWwindow* robotwindow;
+        static GLFWwindow* robotwindow;
+        static int width;
+        static int height;
     public: 
         //No standard constructor
         RobotWindow()=delete;
-
+        static void RenderWindow(int width, int height);
         //The constructor use this
         RobotWindow(int width, int height);
         ~RobotWindow();

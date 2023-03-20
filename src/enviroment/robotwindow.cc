@@ -1,8 +1,21 @@
 #include<enviroment/robotwindow.hpp>
 #include<enviroment/robotrender.hpp>
 
+GLFWwindow* RobotWindow::robotwindow;
+int RobotWindow::width;
+int RobotWindow::height;        
+
 RobotWindow::RobotWindow(int width, int height)
 {
+   
+}
+
+void RobotWindow::RenderWindow(int width, int height)
+{
+    width = width;
+    height = height;
+     width = width;
+    height = height;
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);

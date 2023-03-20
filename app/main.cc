@@ -1,11 +1,13 @@
 #include <iostream>
 #include "enviroment/robotwindow.hpp"
+#include "threads/threads.hpp"
 
 
 
 int main(int argc, char **argv)
 {
-    RobotWindow robotenviroment(980 ,720);
+    AppThreadsManger threadManager;
+    threadManager.addTaskInThread(std::move(RobotWindow::RenderWindow),480,480);
     return EXIT_SUCCESS;
 }
 
