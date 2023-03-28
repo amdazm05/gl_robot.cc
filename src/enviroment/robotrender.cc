@@ -105,23 +105,41 @@ void Robotrender::moveRobotRender(RobotModel::RobotState &offsets)
     fXOffset = offsets.x;
     fYOffset = offsets.y;
     fyaw = offsets.yaw;
+    float  yawrate = offsets.yawrate;
+    float vel = offsets.velxy;
 
     // For animating the render
+    
+
     for(int iVertex = 0; iVertex < robotWheelVertices.size() ; iVertex += 3)
     {   
-        robotWheelVertices.at(iVertex) = robotWheelVertices.at(iVertex)*cosf(fyaw)+robotWheelVertices.at(iVertex+1)*sinf(fyaw);
-        robotWheelVertices.at(iVertex+1) = -robotWheelVertices.at(iVertex)*sinf(fyaw)+robotWheelVertices.at(iVertex+1)*cosf(fyaw);
-        robotWheelVertices.at(iVertex)+= fXOffset;
-        robotWheelVertices.at(iVertex+1) += fYOffset;
-
+        if(yawrate !=0)
+        {
+            robotWheelVertices.at(iVertex) = robotWheelVertices.at(iVertex)*cosf(fyaw)+robotWheelVertices.at(iVertex+1)*sinf(fyaw);
+            robotWheelVertices.at(iVertex+1) = -robotWheelVertices.at(iVertex)*sinf(fyaw)+robotWheelVertices.at(iVertex+1)*cosf(fyaw);
+        }
+        if(vel != 0)
+        {
+            robotWheelVertices.at(iVertex)+= fXOffset;
+            robotWheelVertices.at(iVertex+1) += fYOffset;
+        }
+        
         if(iVertex < robotBodyVertices.size())
         {
-            robotBodyVertices.at(iVertex) = robotBodyVertices.at(iVertex)*cosf(fyaw)+robotBodyVertices.at(iVertex+1)*sinf(fyaw);
-            robotBodyVertices.at(iVertex+1) = -robotBodyVertices.at(iVertex)*sinf(fyaw)+robotBodyVertices.at(iVertex+1)*cosf(fyaw);
-            robotBodyVertices.at(iVertex)+= fXOffset;
-            robotBodyVertices.at(iVertex+1) += fYOffset;
+            
+            if(yawrate !=0)
+            {
+                robotBodyVertices.at(iVertex) = robotBodyVertices.at(iVertex)*cosf(fyaw)+robotBodyVertices.at(iVertex+1)*sinf(fyaw);
+                robotBodyVertices.at(iVertex+1) = -robotBodyVertices.at(iVertex)*sinf(fyaw)+robotBodyVertices.at(iVertex+1)*cosf(fyaw);
+            }            
+            if(vel != 0)
+            {
+                robotBodyVertices.at(iVertex)+= fXOffset;
+                robotBodyVertices.at(iVertex+1) += fYOffset;
+            }
         }
     }
+    
 
     #if PATH_LINES == 1 
     if((trail_points.size()+3) < (1<<16))

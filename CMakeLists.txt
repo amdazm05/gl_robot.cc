@@ -9,6 +9,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
 )
+add_subdirectory(${PROJECT_SOURCE_DIR}/libs/utilities.cc)
 add_library(
     robot_enviroment
     STATIC
@@ -39,4 +40,5 @@ target_link_libraries(
     glut 
     GLU 
     GLEW
+    utils
 )

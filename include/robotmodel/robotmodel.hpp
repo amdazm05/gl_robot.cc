@@ -10,6 +10,8 @@ class RobotModel
             float x;
             float y;
             float yaw;
+            float velxy;
+            float yawrate;
         };
         RobotState Xt_prev;
         RobotState Xt;

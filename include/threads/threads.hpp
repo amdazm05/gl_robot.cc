@@ -8,7 +8,6 @@
 #include <mutex>
 #include <future>
 #include <functional>
-#include "robotmodel/robotmodel.hpp"
 
 class AppThreadsManger
 {
