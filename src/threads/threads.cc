@@ -1,4 +1,5 @@
 #include "threads/threads.hpp"
+std::mutex AppThreadsManger::_mtx;
 
 AppThreadsManger::AppThreadsManger()
 {
