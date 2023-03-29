@@ -2,13 +2,23 @@
 #include "robotmodel/robotmodel.hpp"
 #include "threads/threads.hpp"
 
+
 void UpdateStates(DiffRobotModel & model,RobotModel::RobotState & offsets)
 {
-    while (1)
+    uint32_t i = 0;
+    while (i<(15))
     {
-        offsets = model.updateSate(-0.05f, 0.05f);
+        {
+            std::lock_guard<std::mutex> lock(AppThreadsManger::_mtx);
+            offsets = model.updateSate(-0.1f, -0.3f);
+        }
+        std::cout<<i<<std::endl;
         sleep(1);
+        i++;
     }
+
+    offsets = model.updateSate(0.0f, 0.0f);
+    std::cout<<offsets.x<<offsets.y<<offsets.yaw<<std::endl;
 }
 
 int main(int argc, char **argv)

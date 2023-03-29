@@ -1,0 +1,3 @@
+[submodule "libs/utilities.cc"]
+	path = libs/utilities.cc
+	url = https://github.com/amdazm05/utilities.cc.git

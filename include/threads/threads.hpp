@@ -8,17 +8,16 @@
 #include <mutex>
 #include <future>
 #include <functional>
-#include "robotmodel/robotmodel.hpp"
 
 class AppThreadsManger
 {
     private:
-        std::mutex _mtx;
         std::vector<std::thread> threadVector;
         std::condition_variable sync_condition;
         std::mutex mtx;
     public:
         AppThreadsManger();
+        static std::mutex _mtx;
         template<class Invokable,class...Args>
         void addTaskInThread(Invokable && invokableFunction,Args &... arguements);
         ~AppThreadsManger();

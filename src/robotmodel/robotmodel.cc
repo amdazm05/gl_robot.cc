@@ -9,6 +9,8 @@ DiffRobotModel::DiffRobotModel()
 RobotModel::RobotState DiffRobotModel::updateSate(float velocity, float yawRate)
 {   
     // This is the B matrix
+    Xt.velxy=velocity;
+    Xt.yawrate=yawRate;
     B(0,0)= cosf(Xt_prev.yaw)*delT;
     B(1,0)= sinf(Xt_prev.yaw)*delT;
     // Next State
@@ -20,6 +22,8 @@ RobotModel::RobotState DiffRobotModel::updateSate(float velocity, float yawRate)
     Xt_prev.x = Xt.x;
     Xt_prev.y = Xt.y;
     Xt_prev.yaw = Xt.yaw;
+    Xt_prev.velxy=velocity;
+    Xt_prev.yawrate=yawRate;
     return Xt;
     
 }
