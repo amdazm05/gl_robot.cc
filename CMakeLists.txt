@@ -18,6 +18,7 @@ add_library(
     ${PROJECT_SOURCE_DIR}/src/utils/shaderutils.cc
     ${PROJECT_SOURCE_DIR}/src/robotmodel/robotmodel.cc 
     ${PROJECT_SOURCE_DIR}/src/threads/threads.cc 
+    ${PROJECT_SOURCE_DIR}/src/input/robotinputhandler.cc
 )
 
 target_link_directories(

@@ -6,14 +6,14 @@
 void UpdateStates(DiffRobotModel & model,RobotModel::RobotState & offsets)
 {
     uint32_t i = 0;
-    while (i<(15))
+    while (i<(5))
     {
         {
             std::lock_guard<std::mutex> lock(AppThreadsManger::_mtx);
-            offsets = model.updateSate(-0.1f, -0.3f);
+            offsets = model.updateSate(0.2f, -0.7f);
         }
         std::cout<<i<<std::endl;
-        sleep(1);
+        sleep(2);
         i++;
     }
 
