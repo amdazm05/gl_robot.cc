@@ -1,7 +1,6 @@
 #ifndef _ROBOT_MODEL
 #define _ROBOT_MODEL
-#include <boost/numeric/ublas/matrix.hpp>
-
+#include <cmath>
 class RobotModel
 {
     public:
@@ -22,11 +21,7 @@ class RobotModel
 class DiffRobotModel : public RobotModel
 {
     private:
-        // Since it an identity we don't really need to do anything fancy 
-        // but writing this here for completeness 
-        // boost::numeric::ublas::identity_matrix<float> A;
         float delT = 0.001f;
-        boost::numeric::ublas::matrix<float> B;
     public:
         DiffRobotModel();
         //  Returns the new state ?

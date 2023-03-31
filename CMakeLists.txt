@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 set(CMAKE_BUILD_TYPE Debug)
 project(gl_robot)
-
-# Boost include directories
-find_package(Boost REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
+set(CXX_STANDARD_REQUIRED 20)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++2a")
+set(GCC_COVERAGE_COMPILE_FLAGS "-fcoroutines")
 
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
@@ -21,11 +20,12 @@ add_library(
     ${PROJECT_SOURCE_DIR}/src/input/robotinputhandler.cc
 )
 
-target_link_directories(
+target_include_directories(
     robot_enviroment
     PUBLIC
     ${PROJECT_SOURCE_DIR}/include/enviroment
 )
+target_link_libraries(robot_enviroment PUBLIC utils)
 
 add_executable(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/app/main.cc
@@ -41,5 +41,5 @@ target_link_libraries(
     glut 
     GLU 
     GLEW
-    utils
+    pthread
 )
