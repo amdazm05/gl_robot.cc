@@ -8,6 +8,7 @@
 #include <mutex>
 #include <future>
 #include <functional>
+#include <algorithm>
 
 class AppThreadsManger
 {
