@@ -3,7 +3,7 @@
 #include "threads/threads.hpp"
 
 
-void UpdateStates(DiffRobotModel & model,RobotModel::RobotState & offsets)
+void UpdateStates(DiffRobotModel & model,RobotState & offsets)
 {
     uint32_t i = 0;
     while (i<(5))
@@ -24,13 +24,13 @@ void UpdateStates(DiffRobotModel & model,RobotModel::RobotState & offsets)
 int main(int argc, char **argv)
 {
     DiffRobotModel model;
-    RobotModel::RobotState offsets;
+    RobotState offsets;
     int width = 640;
     int height = 640;
 
     AppThreadsManger threadManager;
-    threadManager.addTaskInThread(std::move(UpdateStates),model,offsets);
     threadManager.addTaskInThread(std::move(RobotWindow::RenderWindow),width,height,offsets);
+    threadManager.addTaskInThread(std::move(UpdateStates),model,offsets);
 
     return EXIT_SUCCESS;
 }

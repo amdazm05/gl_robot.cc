@@ -10,7 +10,7 @@ RobotWindow::RobotWindow(int width, int height)
    
 }
 
-void RobotWindow::RenderWindow(int width, int height,RobotModel::RobotState &offsets)
+void RobotWindow::RenderWindow(int width, int height,RobotState &offsets)
 {
     width = width;
     height = height;

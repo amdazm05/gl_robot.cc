@@ -45,7 +45,7 @@ class Robotrender
         unsigned int    getRobotWheelShaderprogram();
         unsigned int *  getRobotVAO();
         unsigned int *  getRobotVBO();
-        void            moveRobotRender(RobotModel::RobotState & offsets);
+        void            moveRobotRender(RobotState & offsets);
         void            renderRobotPathLine();
         unsigned int    getNumberOfTrailingPoints();
         void            updateRobotPath();

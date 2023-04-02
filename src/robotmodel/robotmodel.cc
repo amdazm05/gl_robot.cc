@@ -5,7 +5,7 @@ DiffRobotModel::DiffRobotModel()
 
 }
 
-RobotModel::RobotState DiffRobotModel::updateSate(float velocity, float yawRate)
+RobotState DiffRobotModel::updateSate(float velocity, float yawRate)
 {   
     // This is the B matrix
     Xt.velxy=velocity;

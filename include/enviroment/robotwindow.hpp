@@ -16,7 +16,7 @@ class RobotWindow
     public: 
         //No standard constructor
         RobotWindow()=delete;
-        static void RenderWindow(int width, int height,RobotModel::RobotState & offsets);
+        static void RenderWindow(int width, int height,RobotState & offsets);
         //The constructor use this
         RobotWindow(int width, int height);
         ~RobotWindow();
