@@ -29,8 +29,8 @@ int main(int argc, char **argv)
     int height = 640;
 
     AppThreadsManger threadManager;
-    threadManager.addTaskInThread(std::move(UpdateStates),model,offsets);
     threadManager.addTaskInThread(std::move(RobotWindow::RenderWindow),width,height,offsets);
+    threadManager.addTaskInThread(std::move(UpdateStates),model,offsets);
 
     return EXIT_SUCCESS;
 }

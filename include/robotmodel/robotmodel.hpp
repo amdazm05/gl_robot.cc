@@ -1,17 +1,19 @@
 #ifndef _ROBOT_MODEL
 #define _ROBOT_MODEL
 #include <cmath>
+
+struct RobotState
+{
+    float x;
+    float y;
+    float yaw;
+    float velxy;
+    float yawrate;
+};
+
 class RobotModel
 {
     public:
-        struct alignas(64) RobotState
-        {
-            float x;
-            float y;
-            float yaw;
-            float velxy;
-            float yawrate;
-        };
         RobotState Xt_prev;
         RobotState Xt;
     public:
