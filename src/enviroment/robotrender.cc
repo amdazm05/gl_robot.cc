@@ -99,7 +99,7 @@ unsigned int * Robotrender::getRobotVBO()
     return  robotVBO;
 }
 
-void Robotrender::moveRobotRender(RobotModel::RobotState &offsets)
+void Robotrender::moveRobotRender(RobotState &offsets)
 {
    
     fXOffset = offsets.x;
