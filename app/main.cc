@@ -1,6 +1,10 @@
 #include "enviroment/robotwindow.hpp"
 #include "robotmodel/robotmodel.hpp"
 #include "threads/threads.hpp"
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+    #include <windows.h>
+    #define sleep(x) _sleep(x)
+#endif
 
 
 void UpdateStates(DiffRobotModel & model,RobotState & offsets)

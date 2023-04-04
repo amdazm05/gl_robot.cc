@@ -31,15 +31,27 @@ add_executable(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/app/main.cc
 )
 
-
-target_link_libraries(
-    ${PROJECT_NAME}
-    PUBLIC
-    robot_enviroment
-    glfw
-    GL 
-    glut 
-    GLU 
-    GLEW
-    pthread
-)
+if (WIN32)
+    target_link_libraries(
+        ${PROJECT_NAME}
+        PUBLIC
+        robot_enviroment
+        opengl32 
+        glew32
+        glfw3
+        freeglut 
+        glu32
+    )
+else(WIN32)
+    target_link_libraries(
+        ${PROJECT_NAME}
+        PUBLIC
+        robot_enviroment
+        glfw
+        GL 
+        glut 
+        GLU 
+        GLEW
+        pthread
+    )
+endif (WIN32)

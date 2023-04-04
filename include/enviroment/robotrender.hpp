@@ -4,7 +4,11 @@
 #include <vector>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <GL/glut.h>
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+    // Nothing needs inclusion
+#else
+    #include <GL/glut.h>
+#endif
 #include <enviroment/robotshader.h>
 #include <robotmodel/robotmodel.hpp>
 #include <utils/shaderutils.hpp>
