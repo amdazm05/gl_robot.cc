@@ -1,8 +1,10 @@
 #ifndef _RBTINPUTHANDLER
 #define _RBTINPUTHANDLER
 
-#include <array>    
 #include <fileoperations/fileoperations.hpp>
+#include <array>
+#include <sstream>   
+#include <string>
 #include "robotmodel/robotmodel.hpp"
 
 class RobotInputHandler

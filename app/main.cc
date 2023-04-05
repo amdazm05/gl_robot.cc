@@ -1,6 +1,7 @@
 #include "enviroment/robotwindow.hpp"
 #include "robotmodel/robotmodel.hpp"
 #include "threads/threads.hpp"
+#include "input/robotinputhandler.hpp"
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
     #include <windows.h>
     #define sleep(x) _sleep(x)
@@ -27,11 +28,13 @@ void UpdateStates(DiffRobotModel & model,RobotState & offsets)
 
 int main(int argc, char **argv)
 {
+    RobotInputHandler IOHandle;
     DiffRobotModel model;
     RobotState offsets;
     int width = 640;
     int height = 640;
 
+    IOHandle.getRobotStatesFromFile("state.txt");
     AppThreadsManger threadManager;
     threadManager.addTaskInThread(std::move(RobotWindow::RenderWindow),width,height,offsets);
     threadManager.addTaskInThread(std::move(UpdateStates),model,offsets);
