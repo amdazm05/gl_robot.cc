@@ -11,19 +11,20 @@ RobotInputHandler::RobotInputHandler()
 
 std::vector<RobotState> && RobotInputHandler::getRobotStatesFromFile(std::string && filename)
 {
-    RobotState state;
     Handle->readfromfile(filename.c_str(),stringBuffer.data(),stringBuffer.size());
     std::string temp = std::string(stringBuffer.data());
     std::istringstream stream(temp);
     while(true)
     {
+        RobotState state;
         stream >> state.velxy;
         std::getline(stream, temp, ',');
         stream >> state.yawrate;
+        stateVector.emplace_back(state);
         if(!std::getline(stream,temp))
         {
             break;
         }
     }
-    return {};
+    return std::move(stateVector);
 }
