@@ -10,15 +10,17 @@
 
 void UpdateStates(DiffRobotModel & model,RobotState & offsets)
 {
+    RobotInputHandler IOHandle;
+    std::vector<RobotState> statevector = IOHandle.getRobotStatesFromFile("state.txt");
     uint32_t i = 0;
-    while (i<(5))
+    while (i<statevector.size())
     {
         {
             std::lock_guard<std::mutex> lock(AppThreadsManger::_mtx);
-            offsets = model.updateSate(0.2f, -0.7f);
+            offsets = model.updateSate(statevector.at(i).velxy, statevector.at(i).yawrate);
         }
         std::cout<<i<<std::endl;
-        sleep(2);
+        sleep(5);
         i++;
     }
 
@@ -28,13 +30,12 @@ void UpdateStates(DiffRobotModel & model,RobotState & offsets)
 
 int main(int argc, char **argv)
 {
-    RobotInputHandler IOHandle;
+    
     DiffRobotModel model;
     RobotState offsets;
     int width = 640;
     int height = 640;
 
-    IOHandle.getRobotStatesFromFile("state.txt");
     AppThreadsManger threadManager;
     threadManager.addTaskInThread(std::move(RobotWindow::RenderWindow),width,height,offsets);
     threadManager.addTaskInThread(std::move(UpdateStates),model,offsets);
